@@ -4,6 +4,197 @@
   
     
     <entry>
+      <title>深度学习实践——优化问题求解</title>
+      <link href="/post/27506d5c.html"/>
+      <url>/post/27506d5c.html</url>
+      
+        <content type="html"><![CDATA[<p>使用<code>pytorch</code>可以很方便地求解优化问题。关键在于构建目标函数，确定优化变量，选择合适的优化器以及设置合理的学习率。</p><p>下面使用求解himmelblau函数极小值点作为例子来演示如何使用<code>pytorch</code>求解优化问题。</p><h3 id="构建目标函数"><a href="#构建目标函数" class="headerlink" title="构建目标函数"></a>构建目标函数</h3><p>求解himmelblau函数的极小值点，就是使得himmelblau函数的值最小，因此直接将himmelblau函数作为目标函数即可。所构建目标函数公式如下：</p><script type="math/tex; mode=display">f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2</script><h3 id="确定优化变量"><a href="#确定优化变量" class="headerlink" title="确定优化变量"></a>确定优化变量</h3><p>优化变量即需要求解的极小值点，在这里就是<code>(x,y)</code>。</p><h3 id="选择优化器"><a href="#选择优化器" class="headerlink" title="选择优化器"></a>选择优化器</h3><p><code>pytorch</code>提供了多种优化器，如<code>SGD</code>、<code>Adam</code>等，这里可以选择<code>Adam</code>优化器。</p><h3 id="设置学习率"><a href="#设置学习率" class="headerlink" title="设置学习率"></a>设置学习率</h3><p>学习率是优化器的一个重要参数，对于优化求解的效果有很大影响。</p><h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p>下面是使用<code>pytorch</code>求解himmelblau函数极小值点的完整代码示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">himmelblau</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Himmelblau function, a common test function for optimization algorithms.</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">    f(x) = (x[0]**2 + x[1] - 11)**2 + (x[0] + x[1]**2 - 7)**2 </span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> (x[<span class="number">0</span>]**<span class="number">2</span> + x[<span class="number">1</span>] - <span class="number">11</span>)**<span class="number">2</span> + (x[<span class="number">0</span>] + x[<span class="number">1</span>]**<span class="number">2</span> - <span class="number">7</span>)**<span class="number">2</span></span><br><span class="line">    </span><br><span class="line">x = torch.tensor([-<span class="number">4.0</span>,<span class="number">2.0</span>], requires_grad=<span class="literal">True</span>)</span><br><span class="line">opt = torch.optim.Adam([x], lr=<span class="number">1e-3</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10001</span>):</span><br><span class="line">    pred = himmelblau(x)</span><br><span class="line">    opt.zero_grad()</span><br><span class="line">    pred.backward()</span><br><span class="line">    opt.step()</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2000</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Step <span class="subst">&#123;i&#125;</span>, x: <span class="subst">&#123;x.detach().numpy()&#125;</span>, f(x): <span class="subst">&#123;pred.item()&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></p><p>需要注意的是，在上述例子中，himmelblau函数有四个极小值点，不同变量初始值会导致最终求解的极小值点不同，因此在实际应用中需要根据具体问题进行具体分析和调整。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> 优化求解 </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pytorch张量基础用法——张量的合并与分割</title>
+      <link href="/post/70aa01c1.html"/>
+      <url>/post/70aa01c1.html</url>
+      
+        <content type="html"><![CDATA[<p>对张量进行合并和分割也是常见的操作，以下是一些常用方法。</p><h3 id="合并操作"><a href="#合并操作" class="headerlink" title="合并操作"></a>合并操作</h3><p>使用<code>torch.cat</code>可以将多个张量沿指定维度进行合并。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">b = torch.rand(<span class="number">4</span>,<span class="number">3</span>)</span><br><span class="line">c = torch.cat([a,b],dim=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(c.shape)</span><br></pre></td></tr></table></figure></p><p>另一个常用的合并方法是<code>torch.stack</code>，但是会生成一个新的维度。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">b = torch.rand(<span class="number">4</span>,<span class="number">3</span>)</span><br><span class="line">c = torch.stack([a,b],dim=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(c.shape)</span><br></pre></td></tr></table></figure></p><h3 id="分割操作"><a href="#分割操作" class="headerlink" title="分割操作"></a>分割操作</h3><p>使用<code>split</code>可以将一个张量沿指定维度分割成多个子张量,需要指定分割后子张量的长度。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">6</span>,<span class="number">3</span>)</span><br><span class="line">b1,b2,b3 = a.split([<span class="number">2</span>,<span class="number">1</span>，<span class="number">3</span>], dim=<span class="number">0</span>)  </span><br><span class="line"><span class="built_in">print</span>(b1.shape)</span><br><span class="line"><span class="built_in">print</span>(b2.shape)</span><br><span class="line"><span class="built_in">print</span>(b3.shape)</span><br></pre></td></tr></table></figure></p><p>使用<code>torch.chunk</code>可以将一个张量沿指定维度分割成指定数量的子张量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">6</span>,<span class="number">3</span>)</span><br><span class="line">b1,b2,b3 = a.chunk(<span class="number">3</span>, dim=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(b2.shape)</span><br><span class="line"><span class="built_in">print</span>(b3.shape)</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pytorch张量基础用法——张量的数学运算</title>
+      <link href="/post/9c352926.html"/>
+      <url>/post/9c352926.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="基础运算"><a href="#基础运算" class="headerlink" title="基础运算"></a>基础运算</h3><p>张量可以进行基本的数学运算，加减乘除等，需要注意的是，运算是对张量中的每一各元素进行，进行运算的张量需要具有相同的形状，或者可以通过广播机制满足条件。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line">b = torch.tensor([[<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line">c = a + b <span class="comment"># c = torch.add(a,b)</span></span><br><span class="line">d = a - b <span class="comment"># d = torch.sub(a,b)</span></span><br><span class="line">e = a * b <span class="comment"># e = torch.mul(a,b)</span></span><br><span class="line">f = a / b <span class="comment"># f = torch.div(a,b)</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h3><p>对于二维张量，可以进行矩阵乘法运算，但需要满足矩阵乘法的条件。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line">b = torch.tensor([[<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line">c = a @ b  <span class="comment"># c = torch.matmul(a, b) </span></span><br></pre></td></tr></table></figure><h3 id="幂乘，指数和对数"><a href="#幂乘，指数和对数" class="headerlink" title="幂乘，指数和对数"></a>幂乘，指数和对数</h3><p>张量可以进行幂乘、指数和对数运算。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line">b = a ** <span class="number">2</span>  <span class="comment"># 幂乘      </span></span><br><span class="line">c = torch.exp(a)  <span class="comment"># 指数</span></span><br><span class="line">d = torch.log(a)  <span class="comment"># 对数</span></span><br></pre></td></tr></table></figure></p><h3 id="统计运算"><a href="#统计运算" class="headerlink" title="统计运算"></a>统计运算</h3><p>张量可以进行统计运算，如求和、均值、最大值、最小值等。同时，统计运算还可以指定维度进行计算,如果不指定维度，则默认对所有元素进行统计。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])          </span><br><span class="line">b = torch.<span class="built_in">sum</span>(a,dim=<span class="number">0</span>)  <span class="comment"># 求和</span></span><br><span class="line">c = torch.mean(a,dim=<span class="number">0</span>)  <span class="comment"># 均值</span></span><br><span class="line">value, index = torch.<span class="built_in">max</span>(a,dim=<span class="number">1</span>)  <span class="comment"># 最大值</span></span><br><span class="line">value, index = torch.<span class="built_in">min</span>(a,dim=<span class="number">1</span>)  <span class="comment"># 最小值</span></span><br><span class="line">f = torch.std(a)  <span class="comment"># 标准差</span></span><br><span class="line">g = torch.var(a)  <span class="comment"># 方差</span></span><br></pre></td></tr></table></figure></p><h3 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h3><p>张量可以进行逻辑运算，如与、或、非等。逻辑运算返回布尔类型的张量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line">b = torch.tensor([[<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line">c = a &gt; b  <span class="comment"># 大于 </span></span><br><span class="line">d = a &lt; b  <span class="comment"># 小于</span></span><br><span class="line">e = a == b  <span class="comment"># 等于</span></span><br><span class="line">f = a != b  <span class="comment"># 不等于</span></span><br><span class="line">g = a &amp; b  <span class="comment"># torch.logical_and(a, b)  # 与</span></span><br><span class="line">h = a | b  <span class="comment"># torch.logical_or(a, b)  # 或</span></span><br><span class="line">i = ~a     <span class="comment"># torch.logical_not(a)  # 非</span></span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pytorch张量基础用法——张量的索引和切片</title>
+      <link href="/post/5521720d.html"/>
+      <url>/post/5521720d.html</url>
+      
+        <content type="html"><![CDATA[<p>索引用来访问张量中的特定元素或者子集。对张量进行索引和切片是处理多维数据的重要操作，以下是一些常见的索引和切片方法。</p><h3 id="基本索引"><a href="#基本索引" class="headerlink" title="基本索引"></a>基本索引</h3><p>最简单的索引方式是使用整数对张量进行索引。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">16</span>,<span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>].shape)</span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>,<span class="number">0</span>].shape)</span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>].shape)</span><br></pre></td></tr></table></figure></p><h3 id="切片索引"><a href="#切片索引" class="headerlink" title="切片索引"></a>切片索引</h3><p>切片索引更加灵活地选取张量中的部分数据，使用整数和冒号的多种组合来实现不同的切片。</p><h4 id="选取前-后n个"><a href="#选取前-后n个" class="headerlink" title="选取前/后n个"></a>选取前/后n个</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">16</span>,<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一个维度选取前两个</span></span><br><span class="line"><span class="built_in">print</span>(a[:<span class="number">2</span>].shape)</span><br><span class="line"><span class="comment"># 第二个维度选取后两个</span></span><br><span class="line"><span class="built_in">print</span>(a[:,-<span class="number">2</span>:].shape)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="选取特定范围"><a href="#选取特定范围" class="headerlink" title="选取特定范围"></a>选取特定范围</h4><p>选取特定范围的元素可以使用整数加冒号加整数的方式。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">16</span>,<span class="number">16</span>)</span><br><span class="line"><span class="comment"># 第一个维度选取第1到第3个</span></span><br><span class="line"><span class="built_in">print</span>(a[<span class="number">1</span>:<span class="number">3</span>].shape)</span><br></pre></td></tr></table></figure><h4 id="按步长选取"><a href="#按步长选取" class="headerlink" title="按步长选取"></a>按步长选取</h4><p>切片时可以指定步长，使用整数加冒号加整数加冒号加整数的方式。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">16</span>,<span class="number">16</span>)</span><br><span class="line"><span class="comment"># 第三个维度选取第1到第3个，步长为2</span></span><br><span class="line"><span class="built_in">print</span>(a[:,:,<span class="number">0</span>:<span class="number">10</span>:<span class="number">2</span>].shape)</span><br></pre></td></tr></table></figure><h4 id="任意维度"><a href="#任意维度" class="headerlink" title="任意维度"></a>任意维度</h4><p>对于维度比较多的张量，可以配合<code>...</code>来选取任意维度。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">4</span>,<span class="number">3</span>,<span class="number">16</span>,<span class="number">16</span>)</span><br><span class="line"><span class="comment"># 选取最后一个维度的后两个</span></span><br><span class="line"><span class="built_in">print</span>(a[..., -<span class="number">2</span>:].shape)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pytorch张量基础用法——张量的维度变换</title>
+      <link href="/post/9d3c0312.html"/>
+      <url>/post/9d3c0312.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="维度变换"><a href="#维度变换" class="headerlink" title="维度变换"></a>维度变换</h3><p>张量的维度变换是指对张量的形状进行调整，以满足特定的计算需求。以下是一些常见的维度变换操作。</p><h3 id="view或reshape"><a href="#view或reshape" class="headerlink" title="view或reshape"></a>view或reshape</h3><p><code>view</code>或<code>reshape</code>操作用于改变张量的形状，但不改变其数据。使用的前提是张量的总元素数量保持不变。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">b = a.view(<span class="number">4</span>,<span class="number">6</span>)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br></pre></td></tr></table></figure><h3 id="squeeze和unsqueeze"><a href="#squeeze和unsqueeze" class="headerlink" title="squeeze和unsqueeze"></a>squeeze和unsqueeze</h3><p><code>squeeze</code>操作用于去除张量中维度为1的维度，而<code>unsqueeze</code>操作用于在指定位置添加一个维度为1的维度。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">b = a.unsqueeze(<span class="number">0</span>)</span><br><span class="line">c = b.unsqueeze(-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">d = c.squeeze(<span class="number">0</span>)</span><br><span class="line">e = c.squeeze()</span><br></pre></td></tr></table></figure><h3 id="expand和repeat"><a href="#expand和repeat" class="headerlink" title="expand和repeat"></a>expand和repeat</h3><p><code>expand</code>操作用于扩展张量的维度，而<code>repeat</code>用于重复张量的元素。注意，<code>expand</code>只能扩展大小为1的维度，而<code>repeat</code>是将维度上的数据进行复制。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>) </span><br><span class="line">b = a.expand(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)  <span class="comment"># 扩展到2x3x4</span></span><br><span class="line">c = a.repeat(<span class="number">2</span>,<span class="number">2</span>)  <span class="comment"># 重复2x</span></span><br><span class="line"><span class="built_in">print</span>(b.shape)  <span class="comment"># 输出: torch.Size([2, 3, 4])</span></span><br><span class="line"><span class="built_in">print</span>(c.shape)  <span class="comment"># 输出: torch.Size([2, 3, 4])</span></span><br></pre></td></tr></table></figure><h3 id="transpose和permute"><a href="#transpose和permute" class="headerlink" title="transpose和permute"></a>transpose和permute</h3><p><code>transpose</code>用于交换张量的两个维度，而<code>permute</code>用于重新排列张量的所有维度。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">b = a.transpose(<span class="number">0</span>, <span class="number">1</span>)  <span class="comment"># 交换第0维和第1维</span></span><br><span class="line">c = a.permute(<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>)  <span class="comment"># 重新排列维度</span></span><br><span class="line"><span class="built_in">print</span>(b.shape)  <span class="comment"># 输出: torch.Size([3, 2, 4])</span></span><br><span class="line"><span class="built_in">print</span>(c.shape)  <span class="comment"># 输出: torch.Size([4, 2, 3])</span></span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pytorch张量基础用法——张量的创建</title>
+      <link href="/post/68634a11.html"/>
+      <url>/post/68634a11.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="创建张量"><a href="#创建张量" class="headerlink" title="创建张量"></a>创建张量</h3><p><code>Tensor</code>的创建可以通过多种方式完成，以下是一些常用的方法。</p><h4 id="从numpy数组创建"><a href="#从numpy数组创建" class="headerlink" title="从numpy数组创建"></a>从<code>numpy</code>数组创建</h4><p>使用<code>torch.from_numpy()</code>函数将已经创建好的<code>numpy</code>数组转换为<code>Tensor</code>。需要注意的是，两者共享内存，对其中一个的修改会影响到另一个。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line">b = torch.from_numpy(a)</span><br></pre></td></tr></table></figure><h4 id="从list创建"><a href="#从list创建" class="headerlink" title="从list创建"></a>从<code>list</code>创建</h4><p>使用<code>torch.tensor()</code>函数可以根据<code>list</code>来创建<code>Tensor</code>。这种方法适用于小规模的数据，并且会对数据进行拷贝，两者之间不会互相影响。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">b = torch.tensor(a)</span><br><span class="line"></span><br></pre></td></tr></table></figure></p><h4 id="非初始化创建"><a href="#非初始化创建" class="headerlink" title="非初始化创建"></a>非初始化创建</h4><p>使用<code>torch.empty()</code>,<code>torch.FloatTensor()</code>等可以创建未初始化但已分配内存的<code>Tensor</code>。<code>set_default_dtype()</code>函数可以设置默认的<code>Tensor</code>类型。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = torch.empty(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">b = torch.FloatTensor(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">set_default_dtype(torch.float64)</span><br><span class="line"></span><br></pre></td></tr></table></figure><h4 id="随机初始化创建"><a href="#随机初始化创建" class="headerlink" title="随机初始化创建"></a>随机初始化创建</h4><p>使用<code>torch.rand()``torch.randint()</code>和<code>torch.randn()</code>可以创建随机初始化的<code>Tensor</code>。注意，<code>torch.randint()</code>输入参数为最小值、最大值和形状，且区间是左闭右开的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = torch.rand(<span class="number">3</span>, <span class="number">4</span>)        </span><br><span class="line">b = torch.randint(<span class="number">0</span>, <span class="number">10</span>, (<span class="number">3</span>, <span class="number">4</span>))  </span><br><span class="line">c = torch.randn(<span class="number">3</span>, <span class="number">4</span>)      </span><br></pre></td></tr></table></figure></p><h4 id="特定数字填充创建"><a href="#特定数字填充创建" class="headerlink" title="特定数字填充创建"></a>特定数字填充创建</h4><p>使用<code>torch.full()</code>可以创建一个指定形状和填充值的<code>Tensor</code>。更特别地，<code>torch.ones()</code>和<code>torch.zeros()</code>可以创建全1或全0的<code>Tensor</code>。<code>torch.eye()</code>可以创建单位矩阵。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = torch.full((<span class="number">3</span>, <span class="number">4</span>), <span class="number">5</span>)</span><br><span class="line">b = torch.ones(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">c = torch.zeros(<span class="number">3</span>, <span class="number">4</span>)       </span><br><span class="line">d = torch.eye(<span class="number">3</span>, <span class="number">4</span>)          </span><br></pre></td></tr></table></figure><h4 id="等分形式创建"><a href="#等分形式创建" class="headerlink" title="等分形式创建"></a>等分形式创建</h4><p>使用<code>torch.linspace()</code>和<code>torch.arange()</code>可以创建等分的<code>Tensor</code>。<code>torch.linspace()</code>用于创建指定范围内的等间隔数值，而<code>torch.arange()</code>用于创建指定步长的数值序列。注意，前者区间是左闭右闭的，而后者是左闭右开的。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = torch.linspace(<span class="number">0</span>, <span class="number">1</span>, steps=<span class="number">5</span>)  <span class="comment"># 从0到1，包含5个等间隔的数值</span></span><br><span class="line">b = torch.arange(<span class="number">0</span>, <span class="number">10</span>, step=<span class="number">2</span>)  <span class="comment"># 从0到10，步长为2</span></span><br></pre></td></tr></table></figure><h4 id="随机索引创建"><a href="#随机索引创建" class="headerlink" title="随机索引创建"></a>随机索引创建</h4><p>使用<code>torch.randperm()</code>可以创建一个随机排列的索引序列，常用于数据的随机抽样。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randperm(<span class="number">10</span>)  <span class="comment"># 创建一个0到9的随机排列</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>pytorch张量基础用法——张量的类型和维度</title>
+      <link href="/post/f7d6a20d.html"/>
+      <url>/post/f7d6a20d.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="张量的类型"><a href="#张量的类型" class="headerlink" title="张量的类型"></a>张量的类型</h3><p>在<code>pytorch</code>当中，所有的数据处理计算都是基于张量，即<code>tensor</code>来完成的。而<code>tensor</code>的类型主要有以下这几种。</p><div class="table-container"><table><thead><tr><th>data type</th><th>dtype</th><th>cpu tensor</th><th>gpu tensor</th></tr></thead><tbody><tr><td>float32</td><td>torch.float32</td><td>torch.FloatTensor</td><td>torch.cuda.FloatTensor</td></tr><tr><td>float64</td><td>torch.float64</td><td>torch.DoubleTensor</td><td>torch.cuda.DoubleTensor</td></tr><tr><td>int32</td><td>torch.int32</td><td>torch.IntTensor</td><td>torch.cuda.IntTensor</td></tr><tr><td>int64</td><td>torch.int64</td><td>torch.LongTensor</td><td>torch.cuda.LongTensor</td></tr><tr><td>uint8</td><td>torch.uint8</td><td>torch.ByteTensor</td><td>torch.cuda.ByteTensor</td></tr><tr><td>bool</td><td>torch.bool</td><td>torch.BoolTensor</td><td>torch.cuda.BoolTensor</td></tr></tbody></table></div><p>需要注意的是，cpu和gpu的张量类型是不同的。类型检查可以使用函数<code>isinstance()</code> 或成员函数<code>type()</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randn(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(a.<span class="built_in">type</span>())</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">isinstance</span>(a, torch.FloatTensor))</span><br></pre></td></tr></table></figure></p><h3 id="标量"><a href="#标量" class="headerlink" title="标量"></a>标量</h3><p>标量是一个0维的张量，往往是对应于机器学习中损失函数的值（loss）。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scalar = torch.tensor(<span class="number">1.0</span>)</span><br><span class="line"><span class="built_in">print</span>(scalar)</span><br></pre></td></tr></table></figure></p><h3 id="一维张量"><a href="#一维张量" class="headerlink" title="一维张量"></a>一维张量</h3><p>一维张量是一个向量，通常对应于机器学习中的标签向量(label)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ylabel = torch.tensor([<span class="number">1.0</span>, <span class="number">2.0</span>])</span><br></pre></td></tr></table></figure></p><h3 id="二维张量"><a href="#二维张量" class="headerlink" title="二维张量"></a>二维张量</h3><p>二维张量是一个矩阵，通常对应于机器学习中带<code>batch</code>的线性输入数据<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randn(<span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure></p><h3 id="三维张量"><a href="#三维张量" class="headerlink" title="三维张量"></a>三维张量</h3><p>三维张量通常被用于RNN网络中，对应（word， sentence， feature）。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randn(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure></p><h3 id="四维张量"><a href="#四维张量" class="headerlink" title="四维张量"></a>四维张量</h3><p>四维张量通常用于卷积神经网络CNN中，对应(batch, channel, height, width)。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randn(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br></pre></td></tr></table></figure></p><h3 id="张量维度查看"><a href="#张量维度查看" class="headerlink" title="张量维度查看"></a>张量维度查看</h3><p>张量的维度可以使用<code>shape</code>属性来查看，也可以使用<code>size()</code>成员函数来查看，或者使用<code>dim()</code>成员函数来查看，该函数直接返回一个整数。对于张量中的元素个数，使用<code>numel()</code>成员函数查看。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randn(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(a.shape) </span><br><span class="line"><span class="built_in">print</span>(a.size())</span><br><span class="line"><span class="built_in">print</span>(a.dim())</span><br><span class="line"><span class="built_in">print</span>(a.numel())</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>四足机器运动控制系列———插值与规划</title>
       <link href="/post/f5ef82c0.html"/>
       <url>/post/f5ef82c0.html</url>
